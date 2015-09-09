@@ -67,7 +67,8 @@ var getActiveQuestions = (questions, questionAnswers, activeQuestions) => {
     .forEach(question => {
       activeQuestions.push({
         questionId  : question.questionId,
-        validations : question.validations
+        validations : question.validations,
+        required: typeof question.required !== 'undefined'? question.required : true
       });
 
       if (typeof question.input.options === 'undefined'
@@ -134,11 +135,17 @@ var getQuestionPanelInvalidQuestions = (questionSets, questionAnswers) => {
    * the validation method required.
    */
   var errors = {};
+
   questionsToCheck
-    .forEach(({questionId, validations}) =>
+    .forEach(({questionId, validations, required}) =>
       [].forEach.bind(validations, validation => {
-        var valid = validateAnswer(questionAnswers[questionId], validation);
+        let value = questionAnswers[questionId];
+        var valid = validateAnswer(value, validation);
         if (valid) {
+          return;
+        }
+
+        if (!valid && (value === null || value === '' || value === undefined) && !required) {
           return;
         }
 

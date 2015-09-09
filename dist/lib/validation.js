@@ -62,7 +62,8 @@ var getActiveQuestions = function getActiveQuestions(questions, questionAnswers,
   questions.forEach(function (question) {
     activeQuestions.push({
       questionId: question.questionId,
-      validations: question.validations
+      validations: question.validations,
+      required: typeof question.required !== 'undefined' ? question.required : true
     });
 
     if (typeof question.input.options === 'undefined' || question.input.options.length === 0) {
@@ -119,12 +120,19 @@ var getQuestionPanelInvalidQuestions = function getQuestionPanelInvalidQuestions
    * the validation method required.
    */
   var errors = {};
+
   questionsToCheck.forEach(function (_ref) {
     var questionId = _ref.questionId;
     var validations = _ref.validations;
+    var required = _ref.required;
     return [].forEach.bind(validations, function (validation) {
-      var valid = validateAnswer(questionAnswers[questionId], validation);
+      var value = questionAnswers[questionId];
+      var valid = validateAnswer(value, validation);
       if (valid) {
+        return;
+      }
+
+      if (!valid && (value === null || value === '' || value === undefined) && !required) {
         return;
       }
 
