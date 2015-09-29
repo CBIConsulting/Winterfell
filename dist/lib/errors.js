@@ -170,8 +170,8 @@ errorMessages.addErrorMessages = function (messages) {
     throw new Error('Winterfell: First parameter of addErrorMessages ' + 'must be of type object');
   }
 
-  for (type in messages) {
-    errorMessages.addErrorMessage(type, messages[type]);
+  for (var _type in messages) {
+    errorMessages.addErrorMessage(_type, messages[_type]);
   }
 };
 
