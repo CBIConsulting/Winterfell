@@ -150,7 +150,7 @@ var getQuestionPanelInvalidQuestions = function getQuestionPanelInvalidQuestions
     var required = _ref.required;
     return [].forEach.bind(validations, function (validation) {
       var value = questionAnswers[questionId];
-      var valid = validateAnswer(value, validation);
+      var valid = validateAnswer(value, validation, questionAnswers);
       if (valid) {
         return;
       }
