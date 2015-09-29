@@ -178,7 +178,7 @@ errorMessages.addErrorMessages = (messages) => {
                     + 'must be of type object');
   }
 
-  for (type in messages) {
+  for (let type in messages) {
     errorMessages.addErrorMessage(type, messages[type]);
   }
 };
