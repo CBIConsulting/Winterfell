@@ -15,8 +15,7 @@ module.exports = {
   },
   externals : {
     'react'        : 'React',
-    'react/addons' : 'React',
-    'lodash': '_'
+    'react/addons' : 'React'
   },
   output    : {
     libraryTarget : 'var',
